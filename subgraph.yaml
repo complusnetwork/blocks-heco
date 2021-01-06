@@ -1,0 +1,25 @@
+specVersion: 0.0.2
+description: Indexing all Huobi ECO Chain Blocks Data
+repository: https://github.com/complusnetwork/blocks-heco
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ConverterRegistryContract
+    network: mainnet
+    source:
+      address: "0xb8d8b45a1ea8bcfa1e7e3574879bd699dc7ef3f6"
+      abi: ConverterRegistryContract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/mappings/blocks.ts
+      entities:
+        - ConverterAddition
+      abis:
+        - name: ConverterRegistryContract
+          file: ./abis/ConverterRegistryContract.json
+      blockHandlers:
+        - handler: handleBlock
+
